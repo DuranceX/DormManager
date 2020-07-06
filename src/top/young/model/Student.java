@@ -3,7 +3,21 @@ package top.young.model;
 public class Student {
 	private String Sno;
 	private String Mno;
-	private String Sclass;
+	private String Ccno;
+	public Student(String sno, String mno, String ccno, String sname, String ssex) {
+		super();
+		Sno = sno;
+		Mno = mno;
+		Ccno = ccno;
+		Sname = sname;
+		Ssex = ssex;
+	}
+	public String getCcno() {
+		return Ccno;
+	}
+	public void setCcno(String ccno) {
+		Ccno = ccno;
+	}
 	private String Sname;
 	private String Ssex;
 	public String getSno() {
@@ -18,12 +32,6 @@ public class Student {
 	public void setMno(String mno) {
 		Mno = mno;
 	}
-	public String getSclass() {
-		return Sclass;
-	}
-	public void setSclass(String sclass) {
-		Sclass = sclass;
-	}
 	public String getSname() {
 		return Sname;
 	}
@@ -34,14 +42,6 @@ public class Student {
 		return Ssex;
 	}
 	public void setSsex(String ssex) {
-		Ssex = ssex;
-	}
-	public Student(String sno, String mno, String sclass, String sname, String ssex) {
-		super();
-		Sno = sno;
-		Mno = mno;
-		Sclass = sclass;
-		Sname = sname;
 		Ssex = ssex;
 	}
 	public Student() {

@@ -103,5 +103,6 @@ public class MainView extends JFrame {
 		desktopPane = new JDesktopPane();
 		desktopPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.add(desktopPane, BorderLayout.CENTER);
+		this.setLocationRelativeTo(null);
 	}
 }
