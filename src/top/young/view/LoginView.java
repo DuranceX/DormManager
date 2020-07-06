@@ -78,6 +78,7 @@ public class LoginView extends JFrame {
 		lblNewLabel.setFont(new Font("宋体", Font.PLAIN, 16));
 		
 		text_username = new JTextField();
+		text_username.setText("3171602051");
 		text_username.setFont(new Font("宋体", Font.PLAIN, 16));
 		text_username.setColumns(10);
 		
@@ -89,6 +90,7 @@ public class LoginView extends JFrame {
 		lblNewLabel_2.setFont(new Font("宋体", Font.PLAIN, 16));
 		
 		text_password = new JPasswordField();
+		text_password.setToolTipText("");
 		text_password.setFont(new Font("宋体", Font.PLAIN, 16));
 		
 		JButton btnNewButton = new JButton("\u767B\u5F55");

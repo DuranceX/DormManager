@@ -4,8 +4,11 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -20,19 +23,24 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import top.young.dao.StudentDao;
 import top.young.model.Student;
+import top.young.model.User;
 import top.young.util.DbUtil;
 import top.young.util.StringUtil;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
 
 public class StudentInfoAddView extends JInternalFrame {
 	private DbUtil dbUtil = new DbUtil();
 	private StudentDao studentDao = new StudentDao();
 	private JTextField SnoText;
-	private JTextField classText;
 	private JTextField SnameText;
 	private JLabel lblNewLabel_4;
 	JComboBox MnoCombobox = new JComboBox();
+	JComboBox classComboBox = new JComboBox();
 	JComboBox sex = new JComboBox();
-
+	private String Ccnos[] = new String[100];
+	private String Mnos[] = new String[100];
+	
 	/**
 	 * Launch the application.
 	 */
@@ -53,6 +61,17 @@ public class StudentInfoAddView extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public StudentInfoAddView() {
+		addInternalFrameListener(new InternalFrameAdapter() {
+			@Override
+			public void internalFrameOpened(InternalFrameEvent arg0) {
+				try {
+					addMnoInfo(arg0);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 		getContentPane().setFont(new Font("宋体", Font.PLAIN, 16));
 		setTitle("\u6DFB\u52A0\u5B66\u751F\u4FE1\u606F");
 		setBounds(100, 100, 521, 264);
@@ -68,9 +87,6 @@ public class StudentInfoAddView extends JInternalFrame {
 		
 		JLabel lblNewLabel_2 = new JLabel("\u73ED\u7EA7\uFF1A");
 		lblNewLabel_2.setFont(new Font("宋体", Font.PLAIN, 16));
-		
-		classText = new JTextField();
-		classText.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("\u59D3\u540D\uFF1A");
 		lblNewLabel_3.setFont(new Font("宋体", Font.PLAIN, 16));
@@ -108,25 +124,30 @@ public class StudentInfoAddView extends JInternalFrame {
 		
 
 		sex.setModel(new DefaultComboBoxModel(new String[] {"\u7537", "\u5973"}));
+		
+		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(41)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(classText, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblNewLabel_1)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(MnoCombobox, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
-							.addGap(1))
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblNewLabel)
 							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(SnoText, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(SnoText, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+									.addComponent(lblNewLabel_1)
+									.addPreferredGap(ComponentPlacement.RELATED))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+									.addGap(38)))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(classComboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(MnoCombobox, 0, 140, Short.MAX_VALUE))
+							.addGap(1)))
 					.addPreferredGap(ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
 						.addGroup(groupLayout.createSequentialGroup()
@@ -146,6 +167,17 @@ public class StudentInfoAddView extends JInternalFrame {
 					.addComponent(btnNewButton_1)
 					.addGap(154))
 		);
+		MnoCombobox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				try {
+					changeClassItems(arg0);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+		});
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
@@ -161,13 +193,10 @@ public class StudentInfoAddView extends JInternalFrame {
 						.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
 						.addComponent(MnoCombobox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(sex, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(23)
-							.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(18)
-							.addComponent(classText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addGap(23)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+						.addComponent(classComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(23)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
@@ -186,12 +215,66 @@ public class StudentInfoAddView extends JInternalFrame {
 		this.SnoText.setText("");
 		this.MnoCombobox.setSelectedIndex(-1);
 		this.sex.setSelectedIndex(-1);
-		this.classText.setText("");	
+		this.classComboBox.setSelectedIndex(-1);	
 	}
 	/**
-	 * @param e
-	 * @throws Exception
+	 * 初始化的时候调用数据库填充专业的item
+	 * @param arg0
+	 * @throws Exception 
 	 */
+	@SuppressWarnings("unchecked")
+	private void addMnoInfo(InternalFrameEvent arg0) throws Exception {
+		// TODO Auto-generated method stub
+		Connection con = null;
+		int i=0;
+		try {
+			con = dbUtil.getCon();
+			String sql = "select * from Major";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				this.Mnos[i++] = rs.getString("Mno");
+				this.MnoCombobox.addItem(rs.getString("Mname"));
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			dbUtil.clossCon(con);
+		}
+	}
+	/**
+	 * 当选定专业的combox的item之后更新class的item
+	 * @param arg0
+	 * @throws Exception 
+	 */
+	@SuppressWarnings("unchecked")
+	private void changeClassItems(ItemEvent arg0) throws Exception {
+		// TODO Auto-generated method stub
+		if(this.MnoCombobox.getSelectedIndex()==-1)
+			return;
+		Connection con = null;
+		int i=0;
+		try {
+			con = dbUtil.getCon();
+			String sql = "select * from CClass where Mno=?";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1,this.Mnos[this.MnoCombobox.getSelectedIndex()]);
+			ResultSet rs = pstmt.executeQuery();
+			//先清空已有的item
+			this.classComboBox.removeAllItems();
+			while(rs.next()) {
+				this.Ccnos[i++] = rs.getString("Ccno");
+				this.classComboBox.addItem(rs.getString("Ccname"));
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			dbUtil.clossCon(con);
+		}
+		
+	}
 	/**
 	 * @param e
 	 * @throws Exception
@@ -202,7 +285,7 @@ public class StudentInfoAddView extends JInternalFrame {
 		String Sname = this.SnameText.getText();
 		String Mno;
 		String Sex;
-		String Sclass = this.classText.getText();
+		String Sclass;
 		if(StringUtil.isEmpty(Sno)) {
 			JOptionPane.showMessageDialog(null, "学号不能为空");
 			return;
@@ -216,7 +299,7 @@ public class StudentInfoAddView extends JInternalFrame {
 			return;
 		}
 		else {
-			Mno = this.MnoCombobox.getSelectedItem().toString();
+			Mno = this.Mnos[this.MnoCombobox.getSelectedIndex()];
 		}
 		if(this.sex.getSelectedItem()==null) {
 			JOptionPane.showMessageDialog(null, "性别不能为空");
@@ -224,9 +307,11 @@ public class StudentInfoAddView extends JInternalFrame {
 		}else {
 			Sex = this.sex.getSelectedItem().toString();
 		}
-		if(StringUtil.isEmpty(Sclass)) {
+		if(this.classComboBox.getSelectedItem()==null) {
 			JOptionPane.showMessageDialog(null, "班级不能为空");
 			return;
+		}else {
+			Sclass = this.Ccnos[this.classComboBox.getSelectedIndex()];
 		}
 		Student student = new Student(Sno,Mno,Sclass,Sname,Sex);
 		Connection con = null;

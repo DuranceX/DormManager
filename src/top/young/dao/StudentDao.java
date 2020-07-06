@@ -20,7 +20,7 @@ public class StudentDao {
 		pstmt.setString(1, student.getSno());
 		pstmt.setString(2, student.getSname());
 		pstmt.setString(3,student.getMno());
-		pstmt.setString(4, student.getSclass());
+		pstmt.setString(4, student.getCcno());
 		pstmt.setString(5, student.getSsex());
 		return pstmt.executeUpdate();
 	}
