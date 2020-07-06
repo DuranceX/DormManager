@@ -1,0 +1,251 @@
+package top.young.view;
+
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+import top.young.dao.StudentDao;
+import top.young.model.Student;
+import top.young.util.DbUtil;
+import top.young.util.StringUtil;
+
+public class StudentInfoAddView extends JInternalFrame {
+	private DbUtil dbUtil = new DbUtil();
+	private StudentDao studentDao = new StudentDao();
+	private JTextField SnoText;
+	private JTextField classText;
+	private JTextField SnameText;
+	private JLabel lblNewLabel_4;
+	JComboBox MnoCombobox = new JComboBox();
+	JComboBox sex = new JComboBox();
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					StudentInfoAddView frame = new StudentInfoAddView();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public StudentInfoAddView() {
+		getContentPane().setFont(new Font("宋体", Font.PLAIN, 16));
+		setTitle("\u6DFB\u52A0\u5B66\u751F\u4FE1\u606F");
+		setBounds(100, 100, 521, 264);
+		
+		JLabel lblNewLabel = new JLabel("\u5B66\u53F7\uFF1A");
+		lblNewLabel.setFont(new Font("宋体", Font.PLAIN, 16));
+		
+		SnoText = new JTextField();
+		SnoText.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("\u4E13\u4E1A\u7F16\u53F7\uFF1A");
+		lblNewLabel_1.setFont(new Font("宋体", Font.PLAIN, 16));
+		
+		JLabel lblNewLabel_2 = new JLabel("\u73ED\u7EA7\uFF1A");
+		lblNewLabel_2.setFont(new Font("宋体", Font.PLAIN, 16));
+		
+		classText = new JTextField();
+		classText.setColumns(10);
+		
+		JLabel lblNewLabel_3 = new JLabel("\u59D3\u540D\uFF1A");
+		lblNewLabel_3.setFont(new Font("宋体", Font.PLAIN, 16));
+		
+		SnameText = new JTextField();
+		SnameText.setColumns(10);
+		
+		lblNewLabel_4 = new JLabel("\u6027\u522B\uFF1A");
+		lblNewLabel_4.setFont(new Font("宋体", Font.PLAIN, 16));
+		
+		JButton btnNewButton = new JButton("\u6DFB\u52A0");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					addStudentActionPerformed(e);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+
+
+		});
+		btnNewButton.setFont(new Font("宋体", Font.PLAIN, 16));
+		
+		JButton btnNewButton_1 = new JButton("\u91CD\u7F6E");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				resetActionPerformed(e);
+			}
+
+
+		});
+		btnNewButton_1.setFont(new Font("宋体", Font.PLAIN, 16));
+		
+
+		sex.setModel(new DefaultComboBoxModel(new String[] {"\u7537", "\u5973"}));
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(41)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(classText, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblNewLabel_1)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(MnoCombobox, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
+							.addGap(1))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblNewLabel)
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(SnoText, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+							.addGap(6)
+							.addComponent(SnameText, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblNewLabel_4, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(sex, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
+							.addGap(1)))
+					.addContainerGap(25, Short.MAX_VALUE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap(162, Short.MAX_VALUE)
+					.addComponent(btnNewButton)
+					.addGap(59)
+					.addComponent(btnNewButton_1)
+					.addGap(154))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(48)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(SnoText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+						.addComponent(SnameText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel))
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel_4, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+						.addComponent(MnoCombobox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(sex, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(23)
+							.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(18)
+							.addComponent(classText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addGap(23)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(22, Short.MAX_VALUE))
+		);
+		getContentPane().setLayout(groupLayout);
+
+	}
+	private void resetActionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		resetNull();
+	}
+	public void resetNull() {
+		this.SnameText.setText("");
+		this.SnoText.setText("");
+		this.MnoCombobox.setSelectedIndex(-1);
+		this.sex.setSelectedIndex(-1);
+		this.classText.setText("");	
+	}
+	/**
+	 * @param e
+	 * @throws Exception
+	 */
+	/**
+	 * @param e
+	 * @throws Exception
+	 */
+	private void addStudentActionPerformed(ActionEvent e) throws Exception {
+		// TODO Auto-generated method stub
+		String Sno = this.SnoText.getText();
+		String Sname = this.SnameText.getText();
+		String Mno;
+		String Sex;
+		String Sclass = this.classText.getText();
+		if(StringUtil.isEmpty(Sno)) {
+			JOptionPane.showMessageDialog(null, "学号不能为空");
+			return;
+		}
+		if(StringUtil.isEmpty(Sname)) {
+			JOptionPane.showMessageDialog(null, "姓名不能为空");
+			return;
+		}
+		if(this.MnoCombobox.getSelectedItem()==null) {
+			JOptionPane.showMessageDialog(null, "专业号不能为空");
+			return;
+		}
+		else {
+			Mno = this.MnoCombobox.getSelectedItem().toString();
+		}
+		if(this.sex.getSelectedItem()==null) {
+			JOptionPane.showMessageDialog(null, "性别不能为空");
+			return;
+		}else {
+			Sex = this.sex.getSelectedItem().toString();
+		}
+		if(StringUtil.isEmpty(Sclass)) {
+			JOptionPane.showMessageDialog(null, "班级不能为空");
+			return;
+		}
+		Student student = new Student(Sno,Mno,Sclass,Sname,Sex);
+		Connection con = null;
+		try {
+			con = dbUtil.getCon();
+			int addNum = studentDao.add(con, student);
+			if(addNum==1) {
+				JOptionPane.showMessageDialog(null, "添加成功");
+				resetNull();
+			}else {
+				JOptionPane.showMessageDialog(null, "添加失败");;
+			}
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}finally {
+			dbUtil.clossCon(con);
+		}
+		
+		
+	}
+}
