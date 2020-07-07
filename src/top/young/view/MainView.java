@@ -158,6 +158,22 @@ public class MainView extends JFrame {
 		JMenuItem mntmNewMenuItem_9 = new JMenuItem("\u62A5\u4FEE\u670D\u52A1");
 		mnNewMenu_4.add(mntmNewMenuItem_9);
 		
+		JMenu mnNewMenu_6 = new JMenu("\u665A\u5F52\u8BB0\u5F55");
+		mnNewMenu_4.add(mnNewMenu_6);
+		
+		JMenuItem mntmNewMenuItem_5 = new JMenuItem("\u6DFB\u52A0\u665A\u5F52\u8BB0\u5F55");
+		mntmNewMenuItem_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AddLateView addLateView = new AddLateView();
+				addLateView.setVisible(true);
+				desktopPane.add(addLateView);
+			}
+		});
+		mnNewMenu_6.add(mntmNewMenuItem_5);
+		
+		JMenuItem mntmNewMenuItem_8 = new JMenuItem("\u67E5\u8BE2\u665A\u5F52\u8BB0\u5F55");
+		mnNewMenu_6.add(mntmNewMenuItem_8);
+		
 		JMenu mnNewMenu_3 = new JMenu("\u5173\u4E8E");
 		mnNewMenu_3.setIcon(new ImageIcon(MainView.class.getResource("/image/about.png")));
 		menuBar.add(mnNewMenu_3);
