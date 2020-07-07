@@ -105,12 +105,33 @@ public class MainView extends JFrame {
 		menuBar.add(mnNewMenu_2);
 		
 		JMenuItem mntmNewMenuItem_4 = new JMenuItem("\u6DFB\u52A0\u697C\u680B\u4FE1\u606F");
+		mntmNewMenuItem_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BuildingAddView buildingAddView = new BuildingAddView();
+				buildingAddView.setVisible(true);
+				desktopPane.add(buildingAddView);
+			}
+		});
 		mnNewMenu_2.add(mntmNewMenuItem_4);
 		
 		JMenuItem mntmNewMenuItem_14 = new JMenuItem("\u66F4\u65B0\u697C\u680B\u4FE1\u606F");
+		mntmNewMenuItem_14.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BuildingUpdateView buildingUpdateView = new BuildingUpdateView();
+				buildingUpdateView.setVisible(true);
+				desktopPane.add(buildingUpdateView);
+			}
+		});
 		mnNewMenu_2.add(mntmNewMenuItem_14);
 		
 		JMenuItem mntmNewMenuItem_15 = new JMenuItem("\u5220\u9664\u697C\u680B\u4FE1\u606F");
+		mntmNewMenuItem_15.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BuildingDeleteView buildingDeleteView = new BuildingDeleteView();
+				buildingDeleteView.setVisible(true);
+				desktopPane.add(buildingDeleteView);
+			}
+		});
 		mnNewMenu_2.add(mntmNewMenuItem_15);
 		
 		JMenuItem mntmNewMenuItem_8 = new JMenuItem("\u67E5\u8BE2\u697C\u680B\u4FE1\u606F");
