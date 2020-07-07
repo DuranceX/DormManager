@@ -34,13 +34,13 @@ public class StudentDao {
 	 * @throws Exception
 	 */
 	public ResultSet list(Connection con, String sno) throws Exception {
-		String sql = "select * from student where sno=?";
+		String sql = "select * from student,cclass,major where sno=? and student.mno = major.mno and student.ccno=cclass.ccno";
 		PreparedStatement pstmt = con.prepareStatement(sql);
 		pstmt.setString(1, sno);
 		return pstmt.executeQuery();
 	}
 	public ResultSet list(Connection con) throws Exception {
-		String sql = "select * from student";
+		String sql = "select * from student,cclass,major where student.mno = major.mno and student.ccno=cclass.ccno";
 		PreparedStatement pstmt = con.prepareStatement(sql);
 		return pstmt.executeQuery();
 	}
