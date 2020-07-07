@@ -22,6 +22,8 @@ import top.young.util.DbUtil;
 import top.young.util.StringUtil;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 @SuppressWarnings("serial")
 public class StudentManagerView extends JInternalFrame {
@@ -51,8 +53,32 @@ public class StudentManagerView extends JInternalFrame {
 	 */
 	public StudentManagerView() {
 		setClosable(true);
-		setTitle("\u5B66\u751F\u4FE1\u606F\u7EF4\u62A4");
-		setBounds(100, 100, 597, 605);
+		setTitle("\u5B66\u751F\u4FE1\u606F\u67E5\u8BE2");
+		setBounds(100, 100, 597, 453);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new TitledBorder(null, "\u641C\u7D22", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(46)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 488, GroupLayout.PREFERRED_SIZE)
+						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 489, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(46, Short.MAX_VALUE))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(29)
+					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(270, Short.MAX_VALUE))
+		);
 		
 		JLabel lblNewLabel = new JLabel("\u5B66\u53F7\uFF1A");
 		lblNewLabel.setFont(new Font("宋体", Font.PLAIN, 16));
@@ -70,48 +96,40 @@ public class StudentManagerView extends JInternalFrame {
 
 		});
 		btnNewButton.setFont(new Font("宋体", Font.PLAIN, 15));
-		
-		JScrollPane scrollPane = new JScrollPane();
-		GroupLayout groupLayout = new GroupLayout(getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(73)
-							.addComponent(lblNewLabel)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(SearchText, GroupLayout.PREFERRED_SIZE, 241, GroupLayout.PREFERRED_SIZE)
-							.addGap(26)
-							.addComponent(btnNewButton))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(46)
-							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 489, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(46, Short.MAX_VALUE))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(55)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(SearchText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnNewButton)
-						.addComponent(lblNewLabel))
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
 					.addGap(33)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(45, Short.MAX_VALUE))
+					.addComponent(lblNewLabel)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(SearchText, GroupLayout.PREFERRED_SIZE, 241, GroupLayout.PREFERRED_SIZE)
+					.addGap(30)
+					.addComponent(btnNewButton)
+					.addContainerGap(55, Short.MAX_VALUE))
 		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel)
+						.addComponent(SearchText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnNewButton))
+					.addContainerGap(14, Short.MAX_VALUE))
+		);
+		panel_1.setLayout(gl_panel_1);
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-				"\u5B66\u53F7", "\u59D3\u540D", "\u4E13\u4E1A\u53F7", "\u73ED\u7EA7\u53F7", "\u6027\u522B"
+				"\u5B66\u53F7", "\u59D3\u540D", "\u4E13\u4E1A", "\u73ED\u7EA7", "\u6027\u522B"
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false
+				false, false, false, false, true
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
@@ -121,6 +139,9 @@ public class StudentManagerView extends JInternalFrame {
 		getContentPane().setLayout(groupLayout);
 		this.fillTable("");
 	}
+	/**
+	 * 学生信息查询
+	 */
 	private void getInfoBySno() {
 		// TODO Auto-generated method stub
 		this.fillTable(this.SearchText.getText());
@@ -139,10 +160,10 @@ public class StudentManagerView extends JInternalFrame {
 				rs = studentDao.list(con,sno);
 			while(rs.next()) {
 				Vector v = new Vector();
-				v.add(rs.getString("Sno"));
+				v.add(rs.getString("Student.Sno"));
 				v.add(rs.getString("Sname"));
-				v.add(rs.getString("Mno"));
-				v.add(rs.getString("Ccno"));
+				v.add(rs.getString("Major.Mname"));
+				v.add(rs.getString("Cclass.CCname"));
 				v.add(rs.getString("Ssex"));
 				dtm.addRow(v);
 			}
