@@ -61,6 +61,7 @@ public class StudentInfoAddView extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public StudentInfoAddView() {
+		setClosable(true);
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameOpened(InternalFrameEvent arg0) {
