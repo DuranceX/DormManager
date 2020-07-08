@@ -64,6 +64,7 @@ public class DormInfoQuery extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public DormInfoQuery() {
+		setClosable(true);
 		setTitle("\u67E5\u8BE2\u5BBF\u820D\u4FE1\u606F");
 		
 		addInternalFrameListener(new InternalFrameAdapter() {

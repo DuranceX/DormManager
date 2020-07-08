@@ -39,5 +39,12 @@ public class User {
 	public void setIdentity(int identity) {
 		this.identity = identity;
 	}
+	public User(String id, String username, String password, int identity) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.identity = identity;
+	}
 	
 }

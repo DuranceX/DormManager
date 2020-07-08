@@ -37,6 +37,10 @@ public class LoginView extends JFrame {
 	private JLabel lblNewLabel_2;
 	private JPasswordField text_password;
 	private JButton btnNewButton_1;
+	private static String login_id;
+	private static String login_username;
+	private static String login_password;
+	private static int identity;
 	private DbUtil dbUtil = new DbUtil();
 	private UserDao userDao = new UserDao();
 
@@ -221,6 +225,10 @@ public class LoginView extends JFrame {
 				else {
 					//进入主页面
 					dispose();
+					login_id = currentUser.getId();
+					login_username = currentUser.getUsername();
+					login_password  = currentUser.getPassword();
+					identity = currentUser.getIdentity();
 					new MainView().setVisible(true);
 				}
 			}
@@ -232,4 +240,37 @@ public class LoginView extends JFrame {
 			}
 		}
 	}
+
+	public static String getLogin_id() {
+		return login_id;
+	}
+
+	public static void setLogin_id(String login_id) {
+		LoginView.login_id = login_id;
+	}
+
+	public static String getLogin_username() {
+		return login_username;
+	}
+
+	public static void setLogin_username(String login_username) {
+		LoginView.login_username = login_username;
+	}
+
+	public static String getLogin_password() {
+		return login_password;
+	}
+
+	public static void setLogin_password(String login_password) {
+		LoginView.login_password = login_password;
+	}
+
+	public static int getIdentity() {
+		return identity;
+	}
+
+	public static void setIdentity(int identity) {
+		LoginView.identity = identity;
+	}
+	
 }
