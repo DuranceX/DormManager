@@ -31,13 +31,13 @@ public class AccommodationDao {
 	 * @throws Exception
 	 */
 	public ResultSet list(Connection con, String sno) throws Exception {
-		String sql = "select * from Accommodation,cclass,major where sno=? and Accommodation.mno = major.mno and Accommodation.ccno=cclass.ccno";
+		String sql = "select * from Accommodation where sno=?";
 		PreparedStatement pstmt = con.prepareStatement(sql);
 		pstmt.setString(1, sno);
 		return pstmt.executeQuery();
 	}
 	public ResultSet list(Connection con) throws Exception {
-		String sql = "select * from Accommodation,cclass,major where Accommodation.mno = major.mno and Accommodation.ccno=cclass.ccno";
+		String sql = "select * from Accommodation";
 		PreparedStatement pstmt = con.prepareStatement(sql);
 		return pstmt.executeQuery();
 	}
@@ -55,20 +55,19 @@ public class AccommodationDao {
 		return pstmt.executeUpdate();
 	}
 	/**
-	 * 根据学号修改学生信息
+	 * 修改学生信息
 	 * @param con
 	 * @param Accommodation
 	 * @return
 	 * @throws Exception
 	 */
-//	public int update(Connection con,Accommodation accommodation) throws Exception {
-//		String sql = "update Accommodation set Sname=?,Mno=?,Ccno=?,Ssex=? where Sno=?";
-//		PreparedStatement pstmt = con.prepareStatement(sql);
-//		pstmt.setString(1,accommodation.getSname());
-//		pstmt.setString(2,accommodation.getMno());
-//		pstmt.setString(3,accommodation.getCcno());
-//		pstmt.setString(4,accommodation.getSsex());
-//		pstmt.setString(5,accommodation.getSno());
-//		return pstmt.executeUpdate();
-//	}
+	public int update(Connection con,Accommodation accommodation) throws Exception {
+		String sql = "update Accommodation set Ano=?,Bno=?,Dno=? where Sno=?";
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setString(1,accommodation.getAno());
+		pstmt.setString(2,accommodation.getBno());
+		pstmt.setString(3,accommodation.getDno());
+		pstmt.setString(4,accommodation.getSno());
+		return pstmt.executeUpdate();
+	}
 }

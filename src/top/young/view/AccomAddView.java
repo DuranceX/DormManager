@@ -266,7 +266,7 @@ public class AccomAddView extends JInternalFrame {
 		Connection con = null;
 		try {
 			con = dbUtil.getCon();
-			//先判断学号是否在数据库中已经存在
+			//先判断该学生是否在数据库中已经存在
 			String sql = "select * from Student where sno=?";
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, this.textField.getText());
@@ -275,12 +275,22 @@ public class AccomAddView extends JInternalFrame {
 				JOptionPane.showMessageDialog(null, "请输入正确的学号");
 				return;
 			}
+			//判断该学生是否已经在住宿表里面
+			sql = "select * from Accommodation where sno=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, this.textField.getText());
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				JOptionPane.showMessageDialog(null, "该学生已经有对应的住宿信息，不能重复添加");
+				return;
+			}
 			//将数据写入数据库
 			//先判断是否有空数据
 			if(this.AreaComboBox.getSelectedIndex()==-1 || this.BuildingComboBox.getSelectedIndex()==-1 ||this.DnoComboBox.getSelectedIndex()==-1 ) {
 				JOptionPane.showMessageDialog(null, "请将信息填写完整");
 				return;
 			}
+			
 			//写入数据
 			Accommodation accommodation = new Accommodation();
 			accommodation.setSno(this.textField.getText());

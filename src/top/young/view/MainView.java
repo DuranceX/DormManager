@@ -41,7 +41,7 @@ public class MainView extends JFrame {
 	public MainView() {
 		setTitle("\u5B66\u751F\u5BBF\u820D\u7BA1\u7406\u7CFB\u7EDF");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 853, 758);
+		setBounds(100, 100, 853, 780);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -95,9 +95,23 @@ public class MainView extends JFrame {
 		mnNewMenu_5.add(mntmNewMenuItem_11);
 		
 		JMenuItem mntmNewMenuItem_12 = new JMenuItem("\u66F4\u65B0\u4F4F\u5BBF\u4FE1\u606F");
+		mntmNewMenuItem_12.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				AccomManagerView accomManagerView = new AccomManagerView();
+				accomManagerView.setVisible(true);
+				desktopPane.add(accomManagerView);
+			}
+		});
 		mnNewMenu_5.add(mntmNewMenuItem_12);
 		
-		JMenuItem mntmNewMenuItem_13 = new JMenuItem("\u5220\u9664\u5BBF\u820D\u4FE1\u606F");
+		JMenuItem mntmNewMenuItem_13 = new JMenuItem("\u67E5\u8BE2\u4F4F\u5BBF\u4FE1\u606F");
+		mntmNewMenuItem_13.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AccomSearchView accomSearchView = new AccomSearchView();
+				accomSearchView.setVisible(true);
+				desktopPane.add(accomSearchView);
+			}
+		});
 		mnNewMenu_5.add(mntmNewMenuItem_13);
 		
 		JMenu mnNewMenu_2 = new JMenu("\u697C\u680B\u4FE1\u606F");
@@ -151,6 +165,39 @@ public class MainView extends JFrame {
 		JMenuItem mntmNewMenuItem_9 = new JMenuItem("\u62A5\u4FEE\u670D\u52A1");
 		mnNewMenu_4.add(mntmNewMenuItem_9);
 		
+		JMenu mnNewMenu_6 = new JMenu("\u665A\u5F52\u8BB0\u5F55");
+		mnNewMenu_4.add(mnNewMenu_6);
+		
+		JMenuItem mntmNewMenuItem_5 = new JMenuItem("\u6DFB\u52A0\u665A\u5F52\u8BB0\u5F55");
+		mntmNewMenuItem_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AddLateView addLateView = new AddLateView();
+				addLateView.setVisible(true);
+				desktopPane.add(addLateView);
+			}
+		});
+		mnNewMenu_6.add(mntmNewMenuItem_5);
+		
+		JMenuItem mntmNewMenuItem_8 = new JMenuItem("\u6839\u636E\u5B66\u53F7\u67E5\u8BE2\u665A\u5F52\u8BB0\u5F55");
+		mntmNewMenuItem_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				LateSearchView lateSearchView = new LateSearchView();
+				lateSearchView.setVisible(true);
+				desktopPane.add(lateSearchView);
+			}
+		});
+		mnNewMenu_6.add(mntmNewMenuItem_8);
+		
+		JMenuItem mntmNewMenuItem_16 = new JMenuItem("\u6839\u636E\u65E5\u671F\u67E5\u8BE2\u665A\u5F52\u8BB0\u5F55");
+		mntmNewMenuItem_16.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				LateSearchView2 lateSearchView = new LateSearchView2();
+				lateSearchView.setVisible(true);
+				desktopPane.add(lateSearchView);
+			}
+		});
+		mnNewMenu_6.add(mntmNewMenuItem_16);
+		
 		JMenu mnNewMenu_3 = new JMenu("\u5173\u4E8E");
 		mnNewMenu_3.setIcon(new ImageIcon(MainView.class.getResource("/image/about.png")));
 		menuBar.add(mnNewMenu_3);
@@ -169,5 +216,6 @@ public class MainView extends JFrame {
 		desktopPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 		this.setLocationRelativeTo(null);
+		setExtendedState( this.getExtendedState()|JFrame.MAXIMIZED_BOTH );
 	}
 }
