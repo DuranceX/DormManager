@@ -134,14 +134,15 @@ public class MainView extends JFrame {
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_15);
 		
-		JMenuItem mntmNewMenuItem_8 = new JMenuItem("\u67E5\u8BE2\u697C\u680B\u4FE1\u606F");
-		mnNewMenu_2.add(mntmNewMenuItem_8);
-		
 		JMenuItem mntmNewMenuItem_10 = new JMenuItem("\u67E5\u8BE2\u5BBF\u820D\u4FE1\u606F");
+		mntmNewMenuItem_10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DormInfoQuery dormInfoQuery = new DormInfoQuery();
+				dormInfoQuery.setVisible(true);
+				desktopPane.add(dormInfoQuery);
+			}
+		});
 		mnNewMenu_2.add(mntmNewMenuItem_10);
-		
-		JMenuItem mntmNewMenuItem_5 = new JMenuItem("\u66F4\u6362\u697C\u680B\u533A\u57DF");
-		mnNewMenu_2.add(mntmNewMenuItem_5);
 		
 		JMenu mnNewMenu_4 = new JMenu("\u5E38\u7528\u529F\u80FD");
 		mnNewMenu_4.setIcon(new ImageIcon(MainView.class.getResource("/image/exit.png")));
