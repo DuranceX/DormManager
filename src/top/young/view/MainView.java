@@ -171,8 +171,25 @@ public class MainView extends JFrame {
 		});
 		mnNewMenu_6.add(mntmNewMenuItem_5);
 		
-		JMenuItem mntmNewMenuItem_8 = new JMenuItem("\u67E5\u8BE2\u665A\u5F52\u8BB0\u5F55");
+		JMenuItem mntmNewMenuItem_8 = new JMenuItem("\u6839\u636E\u5B66\u53F7\u67E5\u8BE2\u665A\u5F52\u8BB0\u5F55");
+		mntmNewMenuItem_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				LateSearchView lateSearchView = new LateSearchView();
+				lateSearchView.setVisible(true);
+				desktopPane.add(lateSearchView);
+			}
+		});
 		mnNewMenu_6.add(mntmNewMenuItem_8);
+		
+		JMenuItem mntmNewMenuItem_16 = new JMenuItem("\u6839\u636E\u65E5\u671F\u67E5\u8BE2\u665A\u5F52\u8BB0\u5F55");
+		mntmNewMenuItem_16.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				LateSearchView2 lateSearchView = new LateSearchView2();
+				lateSearchView.setVisible(true);
+				desktopPane.add(lateSearchView);
+			}
+		});
+		mnNewMenu_6.add(mntmNewMenuItem_16);
 		
 		JMenu mnNewMenu_3 = new JMenu("\u5173\u4E8E");
 		mnNewMenu_3.setIcon(new ImageIcon(MainView.class.getResource("/image/about.png")));
@@ -192,5 +209,6 @@ public class MainView extends JFrame {
 		desktopPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 		this.setLocationRelativeTo(null);
+		setExtendedState( this.getExtendedState()|JFrame.MAXIMIZED_BOTH );
 	}
 }
