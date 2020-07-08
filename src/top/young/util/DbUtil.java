@@ -10,7 +10,7 @@ import java.sql.SQLException;
  *
  */
 public class DbUtil {
-	private String dbUrl = "jdbc:mysql://106.15.249.29/dorm?characterEncoding=utf8";
+	private String dbUrl = "jdbc:mysql://106.15.249.29:3306/dorm?characterEncoding=utf8";
 	private String dbUserName = "root";
 	private String dbPassword = "abc123";
 	private String jdbcName = "com.mysql.jdbc.Driver";

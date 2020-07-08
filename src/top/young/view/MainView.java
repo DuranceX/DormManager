@@ -149,6 +149,13 @@ public class MainView extends JFrame {
 		mnNewMenu_2.add(mntmNewMenuItem_15);
 		
 		JMenuItem mntmNewMenuItem_10 = new JMenuItem("\u67E5\u8BE2\u5BBF\u820D\u4FE1\u606F");
+		mntmNewMenuItem_10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DormInfoQuery dormInfoQuery = new DormInfoQuery();
+				dormInfoQuery.setVisible(true);
+				desktopPane.add(dormInfoQuery);
+			}
+		});
 		mnNewMenu_2.add(mntmNewMenuItem_10);
 		
 		JMenu mnNewMenu_4 = new JMenu("\u5E38\u7528\u529F\u80FD");
