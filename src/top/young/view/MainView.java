@@ -163,6 +163,13 @@ public class MainView extends JFrame {
 		menuBar.add(mnNewMenu_4);
 		
 		JMenuItem mntmNewMenuItem_9 = new JMenuItem("\u62A5\u4FEE\u670D\u52A1");
+		mntmNewMenuItem_9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				RepairManagerView repairManagerView = new RepairManagerView();
+				repairManagerView.setVisible(true);
+				desktopPane.add(repairManagerView);
+			}
+		});
 		mnNewMenu_4.add(mntmNewMenuItem_9);
 		
 		JMenu mnNewMenu_6 = new JMenu("\u665A\u5F52\u8BB0\u5F55");
