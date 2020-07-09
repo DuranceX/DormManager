@@ -13,6 +13,7 @@ import javax.swing.JMenuBar;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuItem;
+import javax.swing.SwingConstants;
 
 public class StudentMainView extends JFrame {
 
@@ -81,15 +82,55 @@ public class StudentMainView extends JFrame {
 		});
 		menu.add(mntmNewMenuItem);
 		
-		JMenu menu_1 = new JMenu("\u67E5\u8BE2\u7535\u8D39");
-		menu_1.addActionListener(new ActionListener() {
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("\u7535\u8D39\u67E5\u8BE2/\u5145\u503C");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				StElecChargingView stElecChargingView = new StElecChargingView();
+				stElecChargingView.setVisible(true);
+				desktopPane.add(stElecChargingView);
 			}
 		});
-		menuBar.add(menu_1);
+		menuBar.add(mntmNewMenuItem_1);
 		
-		JMenu menu_2 = new JMenu("\u62A5\u4FEE");
-		menuBar.add(menu_2);
+		JMenuItem menuItem = new JMenuItem("\u62A5\u4FEE");
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				StudentRepairView studentRepairView = new StudentRepairView();
+				studentRepairView.setVisible(true);
+				desktopPane.add(studentRepairView);
+			}
+		});
+		menuBar.add(menuItem);
+		
+		JMenuItem menuItem_2 = new JMenuItem("                                   ");
+		menuBar.add(menuItem_2);
+		
+		JMenuItem menuItem_4 = new JMenuItem("                                    ");
+		menuBar.add(menuItem_4);
+		
+		JMenuItem menuItem_7 = new JMenuItem("                                     ");
+		menuBar.add(menuItem_7);
+		
+		JMenuItem menuItem_9 = new JMenuItem("                                ");
+		menuBar.add(menuItem_9);
+		
+		JMenuItem menuItem_8 = new JMenuItem("                                   ");
+		menuBar.add(menuItem_8);
+		
+		JMenuItem menuItem_5 = new JMenuItem("                                   ");
+		menuBar.add(menuItem_5);
+		
+		JMenuItem menuItem_6 = new JMenuItem("                                         ");
+		menuBar.add(menuItem_6);
+		
+		JMenuItem menuItem_3 = new JMenuItem("                                             ");
+		menuBar.add(menuItem_3);
+		
+		JMenuItem menuItem_1 = new JMenuItem("                                      ");
+		menuBar.add(menuItem_1);
+		
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("                                                                                                 ");
+		menuBar.add(mntmNewMenuItem_2);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
