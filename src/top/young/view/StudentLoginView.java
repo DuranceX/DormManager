@@ -197,10 +197,7 @@ public class StudentLoginView extends JFrame {
 					login_username = currentUser.getUsername();
 					login_password  = currentUser.getPassword();
 					identity = currentUser.getIdentity();
-					StudentMainView st = new StudentMainView();
-					st.setUsername(userName);
-					st.setPsw(passWord);
-					st.setVisible(true);
+					new StudentMainView().setVisible(true);;
 				}
 			}
 			catch(Exception e){

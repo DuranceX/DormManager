@@ -12,6 +12,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JMenuItem;
 
 public class StudentMainView extends JFrame {
 
@@ -63,15 +64,22 @@ public class StudentMainView extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu menu = new JMenu("\u4FEE\u6539\u5BC6\u7801");
+		JMenu menu = new JMenu("\u4E2A\u4EBA\u4FE1\u606F");
 		menu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				StChangePswView stChangePswView = new StChangePswView();
-				stChangePswView.setVisible(true);
-				desktopPane.add(stChangePswView);
 			}
 		});
 		menuBar.add(menu);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("\u4FEE\u6539\u5BC6\u7801");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				StudentPassUpdateView passUpdateView = new StudentPassUpdateView();
+				passUpdateView.setVisible(true);
+				desktopPane.add(passUpdateView);
+			}
+		});
+		menu.add(mntmNewMenuItem);
 		
 		JMenu menu_1 = new JMenu("\u67E5\u8BE2\u7535\u8D39");
 		menu_1.addActionListener(new ActionListener() {
@@ -93,5 +101,4 @@ public class StudentMainView extends JFrame {
 		this.setLocationRelativeTo(null);
 		setExtendedState( this.getExtendedState()|JFrame.MAXIMIZED_BOTH );
 	}
-
 }
