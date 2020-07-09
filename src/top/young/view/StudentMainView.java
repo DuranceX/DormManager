@@ -13,6 +13,7 @@ import javax.swing.JMenuBar;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuItem;
+import javax.swing.SwingConstants;
 
 public class StudentMainView extends JFrame {
 
@@ -81,15 +82,34 @@ public class StudentMainView extends JFrame {
 		});
 		menu.add(mntmNewMenuItem);
 		
-		JMenu menu_1 = new JMenu("\u67E5\u8BE2\u7535\u8D39");
-		menu_1.addActionListener(new ActionListener() {
+		JMenu mnNewMenu = new JMenu("\u7535\u8D39\u64CD\u4F5C");
+		menuBar.add(mnNewMenu);
+		
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("\u7535\u8D39\u67E5\u8BE2/\u5145\u503C");
+		mnNewMenu.add(mntmNewMenuItem_1);
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				StElecChargingView stElecChargingView = new StElecChargingView();
+				stElecChargingView.setVisible(true);
+				desktopPane.add(stElecChargingView);
 			}
 		});
-		menuBar.add(menu_1);
 		
-		JMenu menu_2 = new JMenu("\u62A5\u4FEE");
-		menuBar.add(menu_2);
+		JMenu mnNewMenu_1 = new JMenu("\u7EF4\u4FEE\u670D\u52A1");
+		menuBar.add(mnNewMenu_1);
+		
+		JMenuItem menuItem = new JMenuItem("\u62A5\u4FEE");
+		mnNewMenu_1.add(menuItem);
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				StudentRepairView studentRepairView = new StudentRepairView();
+				studentRepairView.setVisible(true);
+				desktopPane.add(studentRepairView);
+			}
+		});
+		
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("                                                                                                 ");
+		menuBar.add(mntmNewMenuItem_2);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

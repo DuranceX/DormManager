@@ -18,6 +18,8 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+
 import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ImageIcon;
@@ -51,6 +53,9 @@ public class StudentLoginView extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					String lookAndFeel = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
+					//String lookAndFeel = "javax.swing.plaf.metal.MetalLookAndFeel"; 
+					UIManager.setLookAndFeel(lookAndFeel); 
 					StudentLoginView frame = new StudentLoginView();
 					frame.setVisible(true);
 				} catch (Exception e) {
