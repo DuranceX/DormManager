@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -51,9 +52,24 @@ public class MainView extends JFrame {
 		menuBar.add(mnNewMenu);
 		
 		JMenuItem mntmNewMenuItem_6 = new JMenuItem("\u4FEE\u6539\u5BC6\u7801");
+		mntmNewMenuItem_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PassUpdateView passUpdateView = new PassUpdateView();
+				passUpdateView.setVisible(true);
+				desktopPane.add(passUpdateView);
+			}
+		});
 		mnNewMenu.add(mntmNewMenuItem_6);
 		
 		JMenuItem mntmNewMenuItem_7 = new JMenuItem("\u9000\u51FA\u7CFB\u7EDF");
+		mntmNewMenuItem_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int res = JOptionPane.showConfirmDialog(null, "你确定要退出系统吗？");
+				if(res == 0) {
+					dispose();
+				}
+			}
+		});
 		mnNewMenu.add(mntmNewMenuItem_7);
 		
 		JMenu mnNewMenu_1 = new JMenu("\u5B66\u751F\u4FE1\u606F");
@@ -210,6 +226,13 @@ public class MainView extends JFrame {
 		menuBar.add(mnNewMenu_3);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("\u5173\u4E8E\u6211\u4EEC");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AboutView aboutView = new AboutView();
+				aboutView.setVisible(true);
+				desktopPane.add(aboutView);
+			}
+		});
 		mnNewMenu_3.add(mntmNewMenuItem);
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("\u5E2E\u52A9");

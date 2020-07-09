@@ -25,6 +25,7 @@ public class UserDao {
 		ResultSet rs = pstmt.executeQuery();
 		if(rs.next()) {
 			resultUser = new User();
+			resultUser.setId(rs.getString("id"));
 			resultUser.setUsername(rs.getString("username"));
 			resultUser.setPassword(rs.getString("password"));
 			resultUser.setIdentity(Integer.parseInt(rs.getString("identity")));
@@ -44,6 +45,15 @@ public class UserDao {
 		pstmt.setString(1, user.getUsername());
 		pstmt.setString(2,user.getPassword());
 		pstmt.setInt(3,user.getIdentity());
+		return pstmt.executeUpdate();
+	}
+	public int update(Connection con,User user) throws SQLException {
+		String sql = "update user set username=?, password=?,identity=? where id=?";
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setString(1,user.getUsername());
+		pstmt.setString(2, user.getPassword());
+		pstmt.setString(3, String.valueOf(user.getIdentity()));
+		pstmt.setString(4, user.getId());
 		return pstmt.executeUpdate();
 	}
 }
