@@ -6,10 +6,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.metal.MetalLookAndFeel;
 
 import top.young.dao.UserDao;
 import top.young.model.User;
 import top.young.util.DbUtil;
+import top.young.util.Mytheme;
 import top.young.util.StringUtil;
 
 import javax.swing.ButtonGroup;
@@ -20,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.UIManager;
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
@@ -56,6 +59,9 @@ public class LoginView extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					String lookAndFeel = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
+					//String lookAndFeel = "javax.swing.plaf.metal.MetalLookAndFeel"; 
+					UIManager.setLookAndFeel(lookAndFeel); 
 					LoginView frame = new LoginView();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -82,7 +88,7 @@ public class LoginView extends JFrame {
 		lblNewLabel.setFont(new Font("ËÎÌו", Font.PLAIN, 16));
 		
 		text_username = new JTextField();
-		text_username.setText("3171602051");
+		text_username.setText("admin");
 		text_username.setFont(new Font("ËÎÌו", Font.PLAIN, 16));
 		text_username.setColumns(10);
 		
