@@ -11,6 +11,8 @@ import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Vector;
 
 import javax.swing.GroupLayout;
@@ -271,6 +273,11 @@ public class StudentRepairView extends JInternalFrame {
 				e2.printStackTrace();
 			}
 		}
+		
+		Calendar c = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String dateStr = sdf.format(c.getTime());
+		this.TextTime.setText(dateStr);
 	}
 	
 	private void resetNull()
@@ -278,7 +285,10 @@ public class StudentRepairView extends JInternalFrame {
 		this.AreaComboBox.setSelectedIndex(-1);
 		this.BuildingComboBox.setSelectedIndex(-1);
 		this.DormComboBox.setSelectedIndex(-1);
-		this.TextTime.setText("");
+		Calendar c = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String dateStr = sdf.format(c.getTime());
+		this.TextTime.setText(dateStr);
 		this.reason.setText("");
 	}
 }
