@@ -71,6 +71,7 @@ public class StudentRepairView extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * 
 	 */
 	public StudentRepairView() {
 		
@@ -139,6 +140,7 @@ public class StudentRepairView extends JInternalFrame {
 		
 		reason.setBounds(138, 139, 402, 74);
 		getContentPane().add(reason);
+		AreaComboBox.setEnabled(false);
 		AreaComboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				addBuildingInfo(e);
@@ -147,6 +149,7 @@ public class StudentRepairView extends JInternalFrame {
 		
 		AreaComboBox.setBounds(138, 42, 140, 27);
 		getContentPane().add(AreaComboBox);
+		BuildingComboBox.setEnabled(false);
 		BuildingComboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				addDnoInfo(e);
@@ -155,6 +158,7 @@ public class StudentRepairView extends JInternalFrame {
 		
 		BuildingComboBox.setBounds(402, 42, 132, 27);
 		getContentPane().add(BuildingComboBox);
+		DormComboBox.setEnabled(false);
 		
 		DormComboBox.setBounds(138, 87, 140, 27);
 		getContentPane().add(DormComboBox);

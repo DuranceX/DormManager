@@ -275,6 +275,7 @@ public class AccomAddView extends JInternalFrame {
 				JOptionPane.showMessageDialog(null, "请输入正确的学号");
 				return;
 			}
+			String newSex = rs.getString("ssex");
 			//判断该学生是否已经在住宿表里面
 			sql = "select * from Accommodation where sno=?";
 			pstmt = con.prepareStatement(sql);
@@ -283,6 +284,25 @@ public class AccomAddView extends JInternalFrame {
 			if(rs.next()) {
 				JOptionPane.showMessageDialog(null, "该学生已经有对应的住宿信息，不能重复添加");
 				return;
+			}
+			//判断是否有男女混住的情况
+			sql = "select * from Accommodation";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				//获取第一个同学的学号，从而获得其性别
+				String snoExist = rs.getString("sno");
+				sql = "select * from Student where sno=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, snoExist);
+				rs = pstmt.executeQuery();
+				rs.next();
+				String existSex = rs.getString("ssex");
+				if(!existSex.equals(newSex)) {
+					JOptionPane.showMessageDialog(null, "不能男女混住，请更换宿舍");
+					return;
+				}
+				
 			}
 			//将数据写入数据库
 			//先判断是否有空数据
