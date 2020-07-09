@@ -82,7 +82,11 @@ public class StudentMainView extends JFrame {
 		});
 		menu.add(mntmNewMenuItem);
 		
+		JMenu mnNewMenu = new JMenu("\u7535\u8D39\u64CD\u4F5C");
+		menuBar.add(mnNewMenu);
+		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("\u7535\u8D39\u67E5\u8BE2/\u5145\u503C");
+		mnNewMenu.add(mntmNewMenuItem_1);
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				StElecChargingView stElecChargingView = new StElecChargingView();
@@ -90,9 +94,12 @@ public class StudentMainView extends JFrame {
 				desktopPane.add(stElecChargingView);
 			}
 		});
-		menuBar.add(mntmNewMenuItem_1);
+		
+		JMenu mnNewMenu_1 = new JMenu("\u7EF4\u4FEE\u670D\u52A1");
+		menuBar.add(mnNewMenu_1);
 		
 		JMenuItem menuItem = new JMenuItem("\u62A5\u4FEE");
+		mnNewMenu_1.add(menuItem);
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				StudentRepairView studentRepairView = new StudentRepairView();
@@ -100,34 +107,6 @@ public class StudentMainView extends JFrame {
 				desktopPane.add(studentRepairView);
 			}
 		});
-		menuBar.add(menuItem);
-		
-		JMenuItem menuItem_2 = new JMenuItem("                                   ");
-		menuBar.add(menuItem_2);
-		
-		JMenuItem menuItem_4 = new JMenuItem("                                    ");
-		menuBar.add(menuItem_4);
-		
-		JMenuItem menuItem_7 = new JMenuItem("                                     ");
-		menuBar.add(menuItem_7);
-		
-		JMenuItem menuItem_9 = new JMenuItem("                                ");
-		menuBar.add(menuItem_9);
-		
-		JMenuItem menuItem_8 = new JMenuItem("                                   ");
-		menuBar.add(menuItem_8);
-		
-		JMenuItem menuItem_5 = new JMenuItem("                                   ");
-		menuBar.add(menuItem_5);
-		
-		JMenuItem menuItem_6 = new JMenuItem("                                         ");
-		menuBar.add(menuItem_6);
-		
-		JMenuItem menuItem_3 = new JMenuItem("                                             ");
-		menuBar.add(menuItem_3);
-		
-		JMenuItem menuItem_1 = new JMenuItem("                                      ");
-		menuBar.add(menuItem_1);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("                                                                                                 ");
 		menuBar.add(mntmNewMenuItem_2);
