@@ -51,6 +51,7 @@ public class StudentRepairView extends JInternalFrame {
 	private JComboBox DormComboBox = new JComboBox();
 	private String Anos[] = new String[20];
 	private String Bnos[] = new String[20];
+	private static String username;
 
 	/**
 	 * Launch the application.

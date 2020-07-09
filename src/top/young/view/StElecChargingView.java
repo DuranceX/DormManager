@@ -128,6 +128,10 @@ public class StElecChargingView extends JInternalFrame {
 		
 		BuildingComboBox.setBounds(150, 97, 239, 27);
 		getContentPane().add(BuildingComboBox);
+		DormComboBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+			}
+		});
 		
 		DormComboBox.setBounds(150, 151, 239, 27);
 		getContentPane().add(DormComboBox);
@@ -184,6 +188,10 @@ public class StElecChargingView extends JInternalFrame {
 		}finally {
 			try {
 				dbUtil.clossCon(con);
+				this.AreaComboBox.setSelectedIndex(-1);
+				this.BuildingComboBox.setSelectedIndex(-1);
+				this.DormComboBox.setSelectedIndex(-1);
+				this.balance.setText("");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
