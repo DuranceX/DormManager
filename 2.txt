@@ -1,0 +1,10 @@
+contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		
+		desktopPane = new JDesktopPane();
+		desktopPane.setBackground(Color.LIGHT_GRAY);
+		contentPane.add(desktopPane, BorderLayout.CENTER);
+		this.setLocationRelativeTo(null);
+		setExtendedState( this.getExtendedState()|JFrame.MAXIMIZED_BOTH );
