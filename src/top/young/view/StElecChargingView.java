@@ -72,7 +72,7 @@ public class StElecChargingView extends JInternalFrame {
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameOpened(InternalFrameEvent e) {
-				addAreaInfo(e);
+				addInfo(e);
 			}
 		});
 		
@@ -107,9 +107,10 @@ public class StElecChargingView extends JInternalFrame {
 		lblNewLabel_1.setFont(new Font("微软雅黑", Font.PLAIN, 18));
 		lblNewLabel_1.setBounds(23, 34, 100, 35);
 		getContentPane().add(lblNewLabel_1);
+		AreaComboBox.setEnabled(false);
 		AreaComboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				addBuildingInfo(e);
+//				addBuildingInfo(e);
 			}
 		});
 		
@@ -120,14 +121,16 @@ public class StElecChargingView extends JInternalFrame {
 		lblNewLabel_2.setFont(new Font("微软雅黑", Font.PLAIN, 18));
 		lblNewLabel_2.setBounds(23, 92, 100, 30);
 		getContentPane().add(lblNewLabel_2);
+		BuildingComboBox.setEnabled(false);
 		BuildingComboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				addDnoInfo(e);
+//				addDnoInfo(e);
 			}
 		});
 		
 		BuildingComboBox.setBounds(150, 97, 239, 27);
 		getContentPane().add(BuildingComboBox);
+		DormComboBox.setEnabled(false);
 		DormComboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 			}
@@ -170,49 +173,20 @@ public class StElecChargingView extends JInternalFrame {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void addAreaInfo(InternalFrameEvent arg0) {
+	private void addInfo(InternalFrameEvent arg0) {
 		Connection con = null;
 		int i=0;
 		try {
 			con = dbUtil.getCon();
-			String sql = "select * from Area";
+			String sql = "select * from accommodation where sno = ?";
 			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, StudentLoginView.getLogin_username());
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				this.AreaComboBox.addItem(rs.getString("Ano"));
-				this.Anos[i++] = rs.getString("Ano");
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			try {
-				dbUtil.clossCon(con);
-				this.AreaComboBox.setSelectedIndex(-1);
-				this.BuildingComboBox.setSelectedIndex(-1);
-				this.DormComboBox.setSelectedIndex(-1);
-				this.balance.setText("");
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	private void addBuildingInfo(ItemEvent arg0)
-	{
-		Connection con = null;
-		int i=0;
-		try {
-			con = dbUtil.getCon();
-			String sql = "select * from Building where Ano=?";
-			PreparedStatement pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, this.AreaComboBox.getSelectedItem().toString());
-			ResultSet rs = pstmt.executeQuery();
-			this.BuildingComboBox.removeAllItems();
-			while(rs.next()) {
 				this.BuildingComboBox.addItem(rs.getString("Bno"));
-				this.Bnos[i++] = rs.getString("Bno");
+				this.DormComboBox.addItem(rs.getString("Dno"));
+				this.getBalance();
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -227,44 +201,72 @@ public class StElecChargingView extends JInternalFrame {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
-	private void addDnoInfo(ItemEvent event) {
-		// TODO Auto-generated method stub
-		Connection con = null;
-		int i=0;
-		try {
-			con = dbUtil.getCon();
-			String sql = "select * from Dormitory where Ano = ? and Bno = ?";
-			
-			PreparedStatement pstmt = con.prepareStatement(sql);
-			//这里可能有bug，所以加了一个判断
-			if(this.AreaComboBox.getSelectedItem() == null)
-				return;
-			pstmt.setString(1, this.AreaComboBox.getSelectedItem().toString());
-			//这里可能有bug，所以加了一个判断
-			if(this.BuildingComboBox.getSelectedItem() == null)
-				return;
-			pstmt.setString(2, this.BuildingComboBox.getSelectedItem().toString());
-			ResultSet rs = pstmt.executeQuery();
-			//清除所有items，用于后面放新的值
-			this.DormComboBox.removeAllItems();
-			while(rs.next()) {
-				this.DormComboBox.addItem(rs.getString("Dno"));
-			}
-		} catch (Exception e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}finally {
-			try {
-				dbUtil.clossCon(con);
-				getBalance();
-			} catch (Exception e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			}
-		}
-	}
+//	private void addBuildingInfo(ItemEvent arg0)
+//	{
+//		Connection con = null;
+//		int i=0;
+//		try {
+//			con = dbUtil.getCon();
+//			String sql = "select * from Building where Ano=?";
+//			PreparedStatement pstmt = con.prepareStatement(sql);
+//			pstmt.setString(1, this.AreaComboBox.getSelectedItem().toString());
+//			ResultSet rs = pstmt.executeQuery();
+//			this.BuildingComboBox.removeAllItems();
+//			while(rs.next()) {
+//				this.BuildingComboBox.addItem(rs.getString("Bno"));
+//				this.Bnos[i++] = rs.getString("Bno");
+//			}
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}finally {
+//			try {
+//				dbUtil.clossCon(con);
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+//	}
 	
+//	@SuppressWarnings("unchecked")
+//	private void addDnoInfo(ItemEvent event) {
+//		// TODO Auto-generated method stub
+//		Connection con = null;
+//		int i=0;
+//		try {
+//			con = dbUtil.getCon();
+//			String sql = "select * from Dormitory where Ano = ? and Bno = ?";
+//			
+//			PreparedStatement pstmt = con.prepareStatement(sql);
+//			//这里可能有bug，所以加了一个判断
+//			if(this.AreaComboBox.getSelectedItem() == null)
+//				return;
+//			pstmt.setString(1, this.AreaComboBox.getSelectedItem().toString());
+//			//这里可能有bug，所以加了一个判断
+//			if(this.BuildingComboBox.getSelectedItem() == null)
+//				return;
+//			pstmt.setString(2, this.BuildingComboBox.getSelectedItem().toString());
+//			ResultSet rs = pstmt.executeQuery();
+//			//清除所有items，用于后面放新的值
+//			this.DormComboBox.removeAllItems();
+//			while(rs.next()) {
+//				this.DormComboBox.addItem(rs.getString("Dno"));
+//			}
+//		} catch (Exception e2) {
+//			// TODO Auto-generated catch block
+//			e2.printStackTrace();
+//		}finally {
+//			try {
+//				dbUtil.clossCon(con);
+//				getBalance();
+//			} catch (Exception e2) {
+//				// TODO Auto-generated catch block
+//				e2.printStackTrace();
+//			}
+//		}
+//	}
+//	
 	private void getBalance()
 	{
 		Connection con = null;
